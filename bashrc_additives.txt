@@ -1,0 +1,24 @@
+Add these lines to your ~/.bashrc (or preferably ~/.bash_aliases) to run these scripts like normal commands
+	(this assumes that you put this git directory in your home ~/ folder)
+
+-
+
+` # niemiecs-cookbook scripts `
+alias scripts="cd ~/niemiecs-cookbook; git pull origin master"
+	` # pull changes every time you cd in `
+alias fclip="~/niemiecs-cookbook/fclip.sh"
+	` # file formatting/removing unnecessary whitespace in misc. filetypes `
+alias gitclone="~/niemiecs-cookbook/gitclone.sh"
+	` # see the usage statement; helps clone someone's github repo into your own `
+alias gitrevertall="~/niemiecs-cookbook/gitrevertall.sh"
+	` # lets you revert back to a certain hash in the git log without doing any damage; a read-only safe script to run `
+alias killmy="~/niemiecs-cookbook/killmy.sh"
+	` # a handy tool to kill a process if you know it by name (COMMAND column of "ps -u $USER") `
+alias lstat="~/niemiecs-cookbook/lstat.sh"
+	` # mimics the lstat command; prints a directory's filenames, dates modified, and sizes `
+alias mirror="~/niemiecs-cookbook/mirror.sh"
+	` # when you need to look at two portions of the same file at once, but don't want to accidentally save changes in both terminals `
+alias search="~/niemiecs-cookbook/search.sh"
+	` # I just find this simpler than running the "find" command by itself; searches for a file by name in your file hierarchy `
+alias syntax="~/niemiecs-cookbook/syntax.sh"
+	` # takes you to nano's syntax highlighting files, because I love nano `

@@ -4,13 +4,13 @@
 if [ $# -eq 0 ] ; then
 	cd "/usr/share/nano" # navigate to the syntax config folder
 	clear; clear; pwd; ls # execute a `cls`
-    return
+	exit
 fi
 
 # general usage
 if [ $# -ne 1 ] ; then
 	echo "Usage: syntax <file descriptor, i.e. cpp or py>"
-    return
+	exit
 fi
 
 # opening proper syntax file
@@ -20,7 +20,7 @@ if ! [[ -f "$DESCRIPTOR" ]] ; then # file doesn't exist
 
 	read RESP
 	if [[ $RESP != 'y' && $RESP != 'Y' ]] ; then # user doesn't want to create the file
-        return
+		exit
 	fi
 fi
 
