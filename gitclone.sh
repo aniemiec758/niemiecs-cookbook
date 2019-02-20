@@ -52,4 +52,8 @@ if [ ! -e Makefile ] ; then # if no Makefile existed previously
 	echo -e "all: git-commit\n\n.PHONY: git-commit\ngit-commit:\n\tgit add -A\n\tgit commit -m \"commit\"\n\tgit push origin master" > Makefile
 	git config credential.helper store # so that you only have to enter your username and password once while pushing
 	make
+	clear; clear; echo "You may now run \`make\` in ./$4 in order to push to git"
+else
+	echo -e "all: git-commit <whatever else is specified in \`all:\`>\n\n.PHONY: git-commit\ngit-commit:\n\tgit add -A\n\tgit commit -m \"commit\"\n\tgit push origin master" > makefile-clipping.txt
+	clear; clear; echo "Because a Makefile already exists for this repo, instructions of how to add git-commit functionality are in ./$4/makefile-clipping.txt"
 fi
