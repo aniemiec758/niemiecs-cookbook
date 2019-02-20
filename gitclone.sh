@@ -56,4 +56,5 @@ if [ ! -e Makefile ] ; then # if no Makefile existed previously
 else
 	echo -e "all: git-commit <whatever else is specified in \`all:\`>\n\n.PHONY: git-commit\ngit-commit:\n\tgit add -A\n\tgit commit -m \"commit\"\n\tgit push origin master" > makefile-clipping.txt
 	clear; clear; echo "Because a Makefile already exists for this repo, instructions of how to add git-commit functionality are in ./$4/makefile-clipping.txt"
+	echo -e "\tBefore pushing, run \`git config credential.helper store\` if you want the repo to remember your username and password (so it won't ask for them every single commit)"
 fi
