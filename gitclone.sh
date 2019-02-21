@@ -33,6 +33,7 @@ if [ ! -d "$3" ] ; then # if third argument was mistyped
 	rm -r $4
 	echo ""
 	echo "Error: could not find folder $3!"
+	echo -e "\tDid you really mean " $(ls -t | awk 'NR==1 {print $1}') "?" # point out the most recently added thing in the directory - the git repo folder!
 	echo -e "\tTry again with whatever folder popped up in this directory..."
 	exit
 fi
