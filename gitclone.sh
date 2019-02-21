@@ -44,17 +44,26 @@ rm -r $3	# remove the old folder
 cd $4		# go into your folder; because shell scripts are run in SUBSHELL, you won't be in this folder once the script completes (you'd have to `source` the script in order to do that...)
 
 # hooking up folder to your repo instead of the other person's
-git remote rename origin upstream
-git remote add origin $2
+git remote rename origin upstream	# change the other person's repo to be your upstream, not what you commit to
+git remote add origin $2		# what you actually want to commit to is your own github repo
 
-# an added courtesy, from me to you ...
+# an added courtesy, from me to you ... (when you run `make`, it'll commit code changes to your repo so you don't have to run all the commands every time)
 if [ ! -e Makefile ] ; then # if no Makefile existed previously
-	echo -e "all: git-commit\n\n.PHONY: git-commit\ngit-commit:\n\tgit add -A\n\tgit commit -m \"commit\"\n\tgit push origin master" > Makefile
+	echo -e "all: git-commit" >> Makefile
+	echo -e "\n.PHONY: git-commit" >> Makefile
+	echo -e "git-commit:" >> Makefile
+	echo -e "\tgit add -A" >> Makefile
+	echo -e "\tgit commit -m \"commit\"" >> Makefile
+	echo -e "\tgit push origin master" >> Makefile
 	git config credential.helper store # so that you only have to enter your username and password once while pushing
-	make
+	make # do the initial git commit to your personal github repo, now that you have the other person's repo code
 	clear; clear; echo "You may now run \`make\` in ./$4 in order to push to git"
 else
-	echo -e "all: git-commit <whatever else is specified in \`all:\`>\n\n.PHONY: git-commit\ngit-commit:\n\tgit add -A\n\tgit commit -m \"commit\"\n\tgit push origin master" > makefile-clipping.txt
+	echo -e "all: git-commit <whatever else is specified in \`all:\`>\n" > makefile-clipping.txt
+	echo -e ".PHONY: git-commit\ngit-commit:" >> makefile-clipping.txt
+	echo -e "\tgit add -A" >> makefile-clipping.txt
+	echo -e "\tgit commit -m \"commit\"" >> makefile-clipping.txt
+	echo -e "\tgit push origin master" >> makefile-clipping.txt
 	clear; clear; echo "Because a Makefile already exists for this repo, instructions of how to add git-commit functionality are in ./$4/makefile-clipping.txt"
 	echo -e "\tBefore pushing, run \`git config credential.helper store\` if you want the repo to remember your username and password (so it won't ask for them every single commit)"
 fi
