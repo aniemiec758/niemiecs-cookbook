@@ -56,7 +56,33 @@ if [ ! -e Makefile ] ; then # if no Makefile existed previously
 	echo -e "\tgit add -A" >> Makefile
 	echo -e "\tgit commit -m \"commit\"" >> Makefile
 	echo -e "\tgit push origin master" >> Makefile
-	git config credential.helper store # so that you only have to enter your username and password once while pushing
+
+# cursor-moving shenanigans
+	echo -n "Would you like git to store your credentials so you only have to type them once? (y/n) "
+
+	# getting the current position; can't make a function with a return statement, can't use a helper script... that magic is beyond me
+	echo -e "\033[6n"		# ANSI sequence for "print current position"
+	read -s -d\[ garbage_val	# remove the beginning of the value
+	read -s -d R OLDPOS		# remove the final 'R' character and put the echo statement into the variable OLDPOS
+
+	echo -n "WARNING: git does this in a plain text file named .git-credentials, so only use this on your private computer!"
+	echo " (https://stackoverflow.com/a/18362082 offers some solutions to this via encryption techniques...)"
+
+	# getting the current position again
+	echo -e "\033[6n"
+	read -s -d\[ garbage_val
+	read -s -d R NEWPOS
+
+	# restoring OLDPOS so we can flex on the user (cursor moves to right after (y/n) prompt)
+	echo -ne "\033["$OLDPOS"H" # so pretty!
+# end shenanigans
+
+	# gathering user input
+	read $RESP # take in keyboard input
+	echo -ne "\033["$NEWPOS"H" # move back down to after the wall of text (the true final shenanigan)
+	if [[ $RESP == 'y' || $RESP == 'Y' ]] ; then
+		git config credential.helper store # so that you only have to enter your username and password once while pushing (dangerous if not on your private computer)
+	fi
 	make # do the initial git commit to your personal github repo, now that you have the other person's repo code
 	clear; clear; echo "You may now run \`make\` in ./$4 in order to push to git"
 else
@@ -67,4 +93,6 @@ else
 	echo -e "\tgit push origin master" >> makefile-clipping.txt
 	clear; clear; echo "Because a Makefile already exists for this repo, instructions of how to add git-commit functionality are in ./$4/makefile-clipping.txt"
 	echo -e "\tBefore pushing, run \`git config credential.helper store\` if you want the repo to remember your username and password (so it won't ask for them every single commit)"
+	echo -e "\tWARNING: this will store your username and password in plain text within a file named .git-credentials, so only use this on your private computer!!"
+	echo -e "\t(https://stackoverflow.com/a/18362082 offers some solutions to this via encryption techniques...)"
 fi
