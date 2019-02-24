@@ -13,4 +13,5 @@ git commit -m "$STATEMENT" # must be in double-quotes because it will be multipl
 if [ $# -eq 0 ] ; then
 	git push origin master
 else
-	git push origin $1
+	git push origin "$1" # if the user does some weird input injection technique, I guess
+fi
