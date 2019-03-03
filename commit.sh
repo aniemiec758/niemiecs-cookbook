@@ -9,6 +9,12 @@ echo -n "Commit statement: "
 read STATEMENT
 git commit -m "$STATEMENT" # must be in double-quotes because it will be multiple words long
 
+# if there is no repote repo to push to
+if [ "$1" == "local" ] ; then
+    echo "Committing to local repo ..."
+    exit
+fi
+
 # checking to see if a branch is specified
 if [ $# -eq 0 ] ; then
 	git push origin master
