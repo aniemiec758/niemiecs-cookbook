@@ -11,7 +11,7 @@ git commit -m "$STATEMENT" # must be in double-quotes because it will be multipl
 
 # if there is no repote repo to push to
 if [ "$1" == "local" ] ; then
-    echo "Committing to local repo ..."
+    echo -e "\033[32mCommitting to local repo ...\033[0m"
     exit
 fi
 
