@@ -1,11 +1,17 @@
 Add these lines to your ~/.bashrc (or preferably ~/.bash_aliases) to run these scripts like normal commands
 	(this assumes that you put this git directory in your home ~/ folder)
+Alternatively, you could export the cookbook folder to your $PATH via `export PATH=$PATH:~/niemiecs-cookbook`
+    (placing aliases in your .bashrc allows you to annotate a quick description of each script, however)
 
 -
 
 ` # niemiecs-cookbook scripts `
 alias scripts="cd ~/niemiecs-cookbook; git pull origin master"
 	` # pull changes every time you cd in `
+alias commit="~/niemiecs-cookbook/commit.sh"
+    ` # pushes to master branch of git repo `
+alias clocal="~/niemiecs-cookbook/commit.sh local"
+    ` # pushes to local git repo, shortening of "commit local" `
 alias fclip="~/niemiecs-cookbook/fclip.sh"
 	` # file formatting/removing unnecessary whitespace in misc. filetypes `
 alias gitclone="~/niemiecs-cookbook/gitclone.sh"
