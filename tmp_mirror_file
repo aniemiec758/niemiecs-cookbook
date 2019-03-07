@@ -25,23 +25,6 @@ fi
 # this is where the fun begins ...
 
 # pulling the repo down and shuffling files around
-if [ -d $4 ] ; then # if the folder they want to create already exists, make absolute sure before trying to replace it
-	echo "Error: $4 already exists in this folder!"
-	echo -n "Do you REALLY want to replace it? (y/n) "
-	read RESP
-	if [[ $RESP == 'y' || $RESP == 'Y' ]] ; then
-		echo -n "... Are you sure? (y/n) "
-		read RESP
-		if [[ $RESP == 'y' || $RESP == 'Y' ]] ; then
-			rm -rf $4
-		else
-			exit
-		fi
-	else
-		exit
-	fi
-fi
-
 mkdir $4	# create your local folder
 git clone $1	# download other person's git repo
 if [ $? -ne 0 ] ; then
@@ -63,7 +46,7 @@ fi
 cd $3		# go into the freshly downloaded folder
 mv * .* ../$4	# move everything here (including .hidden files) into your local folder
 cd ..		# move up
-rm -rf $3	# remove the old folder
+rm -r $3	# remove the old folder
 cd $4		# go into your folder; because shell scripts are run in SUBSHELL, you won't be in this folder once the script completes (you'd have to `source` the script in order to do that...)
 
 # hooking up folder to your repo instead of the other person's
