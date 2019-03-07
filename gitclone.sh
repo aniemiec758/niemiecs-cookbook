@@ -27,6 +27,11 @@ fi
 # pulling the repo down and shuffling files around
 mkdir $4	# create your local folder
 git clone $1	# download other person's git repo
+if [ $? -ne 0 ] ; then
+	echo "Error: repo could not be found"
+	rm -r $4
+	exit
+fi
 
 # surprise error checking!!
 if [ ! -d "$3" ] ; then # if third argument was mistyped
@@ -84,7 +89,7 @@ if [ ! -e Makefile ] ; then # if no Makefile existed previously
 	make # do the initial git commit to your personal github repo, now that you have the other person's repo code
 	clear; clear; echo "You may now run \`make\` in ./$4 in order to push to git"
 else
-	echo -e "all: git-commit <whatever else is specified in \`all:\`>\n" > makefile-clipping.txt
+	echo -e "all: git-commit <whatever else is specified in \`all\`:>\n" > makefile-clipping.txt
 	echo -e ".PHONY: git-commit\ngit-commit:" >> makefile-clipping.txt
 	echo -e "\tgit add -A" >> makefile-clipping.txt
 	echo -e "\tgit commit -m \"commit\"" >> makefile-clipping.txt
