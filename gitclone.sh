@@ -83,14 +83,14 @@ if [ ! -e Makefile ] ; then # if no Makefile existed previously
 	echo -n "Would you like git to store your credentials so you only have to type them once? (y/n) "
 
 	# getting the current position; calls a neat helper script and imports its variables
-	source ./getCursor.sh
+	source $(dirname $0)/getCursor.sh
 	OLDPOS=$CPOS
 
 	echo -n "WARNING: git does this in a plain text file named .git-credentials, so only use this on your private computer!"
 	echo " (https://stackoverflow.com/a/18362082 offers some solutions to this via encryption techniques...)"
 
 	# getting the current position again
-	source ./getCursor.sh
+	source $(dirname $0)/getCursor.sh
 	NEWPOS=$CPOS
 
 	# restoring OLDPOS so we can flex on the user (cursor moves to right after (y/n) prompt)
