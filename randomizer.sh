@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# THIS STARTED AS A PROOF OF CONCEPT BUT IT'S STILL PRETTY FUN
+
 # arguments checking
 MSG="mmeep"
 if [ $# -gt 0 ] ; then
