@@ -28,5 +28,7 @@ alias mirror="~/niemiecs-cookbook/mirror.sh"
 	` # when you need to look at two portions of the same file at once, but don't want to accidentally save changes in both terminals `
 alias search="~/niemiecs-cookbook/search.sh"
 	` # I just find this simpler than running the "find" command by itself; searches for a file by name in your file hierarchy `
+alias swompt="source ~/niemiecs-cookbook/swompt.sh"
+    ` # personal PS1 prompts for bash that I find funny, maybe you'll find them funny too; "swompt" stands for "swap prompt" `
 alias syntax="source ~/niemiecs-cookbook/syntax.sh" 
 	` # takes you to nano's syntax highlighting files, because I love nano (must use "source" because the script uses "cd") `

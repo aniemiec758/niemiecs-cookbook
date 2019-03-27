@@ -2,7 +2,7 @@
 
 # because I'm lazy
 
-# getting the commit statement FIRST (user might ctrl-C if they change their mind)
+# getting the commit statement FIRST (user might ctrl-c if they change their mind)
 echo -n "Commit statement: "
 read STATEMENT
 git add -A
