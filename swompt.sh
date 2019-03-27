@@ -25,7 +25,7 @@ script_body() {
 # this is where the fun begins (again)
 
     if [ $1 = "bigboy" ] ; then # this if-statement ALONE is the entire reason I made this script; it was 2AM and I felt inspired
-        PS1="\033[0m╔╗   ╔╗               ═╗═╗     \n║║║║║║║ ║║║╔╗╬'╔ ╬║ º╔╔╝╔╝     \n╚╝╚╩╝╚╝ ╚╩╝╚╩╚ ╝ ╚╠╗║╝º º  \! > "
+        PS1="\033[0m╔╗   ╔╗               ═╗═╗     \n║║║║║║║ ║║║╔╗╬'╔ ╬║ º╔╔╝╔╝     \n╚╝╚╩╝╚╝ ╚╩╝╚╩╚ ╝ ╚╠╗║╝º º  \! > " # you easily could have called this script "glompt.sh"
         return
     fi
 
