@@ -31,12 +31,12 @@ script_body() {
 
     if [ $1 = "clean" ] ; then
         S=`shorthostname`
-        PS1="\033\0m$S \! > "
+        PS1="\033[0m$S \! > "
         return
     fi
 
     if [ $1 = "gradient" ] ; then
-        PS1="`echo -ne "\033[2m\033[46;34m░░░▒▒▓▓█"; echo -e "\033[44;37m$USER \033[0m > "`"
+        PS1="`echo -ne "\033[2m\033[46;34m░░░▒▒▓▓█"; echo -e "\033[44;37m$USER \033[0m \! > "`"
         return
     fi
 
