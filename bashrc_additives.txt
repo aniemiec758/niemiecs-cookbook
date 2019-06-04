@@ -20,7 +20,7 @@ alias gitrevertall="~/niemiecs-cookbook/gitrevertall.sh"
 	` # lets you revert back to a certain hash in the git log without doing any damage; a read-only safe script to run `
 alias killmy="~/niemiecs-cookbook/killmy.sh"
 	` # a handy tool to kill a process if you know it by name (COMMAND column of "ps -u $USER") `
-alias lf="ls -al | grep"
+alias gls="ls -al | grep"
     ` # easier than typing "ls -al | grep <something> every time"
 alias lstat="~/niemiecs-cookbook/lstat.sh"
 	` # mimics the lstat command; prints a directory's filenames, dates modified, and sizes `
