@@ -86,7 +86,7 @@ if [ ! -e Makefile ] ; then # if no Makefile existed previously
 	source $(dirname $0)/getCursor.sh
 	OLDPOS=$CPOS
 
-	echo -n "WARNING: git does this in a plain text file named .git-credentials, so only use this on your private computer!"
+	echo -n "WARNING: git does this in a \033[31mplain text file\033[0m named .git-credentials, so only use this on your private computer!"
 	echo " (https://stackoverflow.com/a/18362082 offers some solutions to this via encryption techniques...)"
 
 	# getting the current position again
