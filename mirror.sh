@@ -23,6 +23,6 @@ if [ ! -e "$1" ] ; then
 fi
 
 # it's a simple script, but quite unbreakable
-cat $1 > tmp_mirror_file
-nano tmp_mirror_file
-rm tmp_mirror_file
+cat $1 > tmp_mirror_file_$1
+nano tmp_mirror_file_$1
+rm tmp_mirror_file_$1
