@@ -1,34 +1,38 @@
-Add these lines to your ~/.bashrc (or preferably ~/.bash_aliases) to run these scripts like normal commands
-	(this assumes that you put this git directory in your home ~/ folder)
+Add these lines to your ~/.bashrc (or preferably some ~/.bash_aliases which is referenced by your ~/.bashrc) to run these scripts like normal commands
+	(if you put the niemiecs-cookbook directory somewhere other than ~/, update the NIEMIECS_COOKBOOK_DIR variable below)
 Alternatively, you could export the cookbook folder to your $PATH via `export PATH=$PATH:~/niemiecs-cookbook`
     (placing aliases in your .bashrc allows you to annotate a quick description of each script, however)
 
 -
 
 ` # niemiecs-cookbook scripts `
-alias scripts="cd ~/niemiecs-cookbook; git pull origin master"
+NIEMIECS_COOKBOOK_DIR=~/"niemiecs-cookbook" ` # NOTE: the ~/ is intentionally left out of double quotes, doesn't expand correctly when quoted `
+alias scripts="cd $NIEMIECS_COOKBOOK_DIR; git pull origin master"
 	` # pull changes every time you cd in `
-alias commit="~/niemiecs-cookbook/commit.sh"
-    ` # pushes to master branch of git repo `
-alias clocal="~/niemiecs-cookbook/commit.sh local"
-    ` # pushes to local git repo, shortening of "commit local" `
-alias fclip="~/niemiecs-cookbook/fclip.sh"
+
+alias commit="$NIEMIECS_COOKBOOK_DIR/commit.sh"
+	` # pushes to master branch of git repo `
+alias clocal="$NIEMIECS_COOKBOOK_DIR/commit.sh local"
+	` # pushes to local git repo, shortening of "commit local" `
+alias fclip="$NIEMIECS_COOKBOOK_DIR/fclip.sh"
 	` # file formatting/removing unnecessary whitespace in misc. filetypes `
-alias gitclone="~/niemiecs-cookbook/gitclone.sh"
+alias gitclone="$NIEMIECS_COOKBOOK_DIR/gitclone.sh"
 	` # see the usage statement; helps clone someone's github repo into your own `
-alias gitrevertall="~/niemiecs-cookbook/gitrevertall.sh"
+alias gitrevertall="$NIEMIECS_COOKBOOK_DIR/gitrevertall.sh"
 	` # lets you revert back to a certain hash in the git log without doing any damage; a read-only safe script to run `
-alias killmy="~/niemiecs-cookbook/killmy.sh"
+alias killmy="$NIEMIECS_COOKBOOK_DIR/killmy.sh"
 	` # a handy tool to kill a process if you know it by name (COMMAND column of "ps -u $USER") `
 alias gls="ls -al | grep"
-    ` # easier than typing "ls -al | grep <something> every time"
-alias lstat="~/niemiecs-cookbook/lstat.sh"
+	` # easier than typing "ls -al | grep <something> every time"
+alias lstat="$NIEMIECS_COOKBOOK_DIR/lstat.sh"
 	` # mimics the lstat command; prints a directory's filenames, dates modified, and sizes `
-alias mirror="~/niemiecs-cookbook/mirror.sh"
+alias mirror="$NIEMIECS_COOKBOOK_DIR/mirror.sh"
 	` # when you need to look at two portions of the same file at once, but don't want to accidentally save changes in both terminals `
-alias search="~/niemiecs-cookbook/search.sh"
+alias search="$NIEMIECS_COOKBOOK_DIR/search.sh"
 	` # I just find this simpler than running the "find" command by itself; searches for a file by name in your file hierarchy `
-alias swompt="source ~/niemiecs-cookbook/swompt.sh"
-    ` # personal PS1 prompts for bash that I find funny, maybe you'll find them funny too; "swompt" stands for "swap prompt" `
-alias syntax="source ~/niemiecs-cookbook/syntax.sh" 
+alias swompt="source $NIEMIECS_COOKBOOK_DIR/swompt.sh"
+	` # personal PS1 prompts for bash that I find funny, maybe you'll find them funny too; "swompt" stands for "swap prompt" `
+alias syntax="source $NIEMIECS_COOKBOOK_DIR/syntax.sh" 
 	` # takes you to nano's syntax highlighting files, because I love nano (must use "source" because the script uses "cd") `
+alias todo="$NIEMIECS_COOKBOOK_DIR/lstat.sh"
+	` # recursively searches through subfolders, finding files that have "TODO" in them (case insensitive) `
