@@ -34,5 +34,5 @@ alias swompt="source $NIEMIECS_COOKBOOK_DIR/swompt.sh"
 	` # personal PS1 prompts for bash that I find funny, maybe you'll find them funny too; "swompt" stands for "swap prompt" `
 alias syntax="source $NIEMIECS_COOKBOOK_DIR/syntax.sh" 
 	` # takes you to nano's syntax highlighting files, because I love nano (must use "source" because the script uses "cd") `
-alias todo="$NIEMIECS_COOKBOOK_DIR/lstat.sh"
+alias todo="$NIEMIECS_COOKBOOK_DIR/find_issues.sh"
 	` # recursively searches through subfolders, finding files that have "TODO" in them (case insensitive) `
