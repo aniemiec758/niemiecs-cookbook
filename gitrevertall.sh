@@ -8,8 +8,8 @@ if ! [ -d .git ] ; then
 fi
 
 # checking number of arguments
-if [ $# -ne 1 ] ; then
-	echo "Usage: gitrevertall <revert key>"
+if [ $# -ne 1 && $# -ne 2 ] ; then
+	echo "Usage: gitrevertall <revert key> <subdir>?"
 	echo "For help, type \"gitrevertall help\""
 	exit
 fi
@@ -20,6 +20,7 @@ if [ "$1" = "help" ] ; then
 	echo -e "\tSoftly reverts all files in a git repo to a certain commit by running \"git show <revert key>:<filename> > <filename>\" on all files in the current directory"
 	echo -e "\tIf a file in the directory is not part of the git log, it won't be modified"
 	echo -e "\tTo get the <revert key>, run \"git log\" and look for \"commit <some random hash>\""
+	echo -e "\tThis will currently NOT run within subdirectories - the optional <subdir>? argument will specify which subdir folder to affect"
 	echo -e "\tREMEMBER: commit all code before running this command - uncommited changes will be lost!"
 	echo ""
 	exit
@@ -30,6 +31,21 @@ $(git show $1 &>/dev/null) # stdout and stderr are piped to the bit bucket becau
 if [ $? -ne 0 ] ; then # code 128 or something was thrown
 	echo "Error: revert key <$1> does not appear to exist"
 	exit
+fi
+
+# capturing the subdir, if necessary
+SUBDIR=""
+if [ $# -eq 2 ] ; then
+	if [ -d "$2" ] ; then
+		SUBDIR="$2"
+		# if they forgot a / at the end
+		if [ "${SUBDIR:${#SUBDIR}-1}" -neq "/" ] ; then
+			SUBDIR=$SUBDIR"/"
+		fi
+	else
+		echo "Error: $2 does not appear to exist (are you in the parent directory of the git repo, instead of in the folder you're trying to revert?)"
+		exit
+	fi
 fi
 
 # ----------
@@ -43,9 +59,9 @@ for file in * ; do # for all files in the current directory
 
 #	if [ "$OLDVERSION" = "" ] ; then # this file wasn't in the git log
 	if [ $? -ne 0 ] ; then
-		FILELIST=$FILELIST$file" " # add to list of files not in git log
+		FILELIST=$FILELIST$SUBDIR$file" " # add to list of files not in git log
 	else # file was indeed in the git log
-		git show $1:$file > $file 2>/dev/null # overwrite the file with the other commit version
+		git show $SUBDIR$1:$file > $SUBDIR$file 2>/dev/null # overwrite the file with the other commit version
 	fi
 done
 
@@ -60,5 +76,6 @@ fi
 
 # IN FUTURE:
 #	when encountering a directory (-d $file or something), do a recursive call of the git revert
+#		currently have a way to run within a given subdirectory when specified
 #	fix the note at the start of the for-loop
 #	put this on github (along with the other scripts?)
