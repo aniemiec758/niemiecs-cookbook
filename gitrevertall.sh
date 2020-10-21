@@ -44,6 +44,7 @@ if [ $# -eq 2 ] ; then
 		fi
 	else
 		echo "Error: $2 does not appear to exist (are you in the parent directory of the git repo, instead of in the folder you're trying to revert?)"
+		echo "\tIf you changed your directory name between the old commit and now, this scipt does not handle that case - rename the subdir to what it originally had been in this case"
 		exit
 	fi
 fi
