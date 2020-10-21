@@ -8,7 +8,7 @@ if ! [ -d .git ] ; then
 fi
 
 # checking number of arguments
-if [ $# -ne 1 && $# -ne 2 ] ; then
+if [ $# -ne 1 ] && [ $# -ne 2 ] ; then
 	echo "Usage: gitrevertall <revert key> <subdir>?"
 	echo "For help, type \"gitrevertall help\""
 	exit
@@ -39,11 +39,20 @@ if [ $# -eq 2 ] ; then
 	if [ -d "$2" ] ; then
 		SUBDIR="$2"
 		# if they forgot a / at the end
-		if [ "${SUBDIR:${#SUBDIR}-1}" -neq "/" ] ; then
+		if [[ "${SUBDIR:${#SUBDIR}-1}" != "/" ]] ; then
 			SUBDIR=$SUBDIR"/"
 		fi
 	else
 		echo "Error: $2 does not appear to exist (are you in the parent directory of the git repo, instead of in the folder you're trying to revert?)"
+		exit
+	fi
+fi
+
+# cd'ing if necessary
+if [[ "$SUBDIR" != "" ]] ; then
+	cd $SUBDIR
+	if [ $(echo $?) -ne 0 ] ; then
+		echo "Error: you must be in the top directory of your git repo before running this, not already be in the subdirectory you wish to revert"
 		exit
 	fi
 fi
@@ -55,13 +64,13 @@ FILELIST="" # to hold all the files not in the git log
 for file in * ; do # for all files in the current directory
 # TODO the following command just DOESN'T work for some reason, it keeps mixing in a list of every file in your file hierarchy
 #	OLDVERSION=$(git show $1:$file 2>/dev/null) # get the old version; this lets us check if OLDVERSION is empty, i.e. the file wasn't in the git log and would be nuked by the full command
-	git show $1:$file &>/dev/null # hack because above line doesn't work; goes from O(n+1) to O(2n+1) because this workaround utilizes an exit status and repeats the same command later when writing to file
+	git show $1:$SUBDIR$file #&>/dev/null # hack because above line doesn't work; goes from O(n+1) to O(2n+1) because this workaround utilizes an exit status and repeats the same command later when writing to file
 
 #	if [ "$OLDVERSION" = "" ] ; then # this file wasn't in the git log
 	if [ $? -ne 0 ] ; then
 		FILELIST=$FILELIST$SUBDIR$file" " # add to list of files not in git log
 	else # file was indeed in the git log
-		git show $SUBDIR$1:$file > $SUBDIR$file 2>/dev/null # overwrite the file with the other commit version
+		git show $1:$SUBDIR$file > $SUBDIR$file 2>/dev/null # overwrite the file with the other commit version
 	fi
 done
 
