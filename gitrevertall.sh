@@ -65,13 +65,13 @@ FILELIST="" # to hold all the files not in the git log
 for file in * ; do # for all files in the current directory
 # TODO the following command just DOESN'T work for some reason, it keeps mixing in a list of every file in your file hierarchy
 #	OLDVERSION=$(git show $1:$file 2>/dev/null) # get the old version; this lets us check if OLDVERSION is empty, i.e. the file wasn't in the git log and would be nuked by the full command
-	git show $1:$SUBDIR$file #&>/dev/null # hack because above line doesn't work; goes from O(n+1) to O(2n+1) because this workaround utilizes an exit status and repeats the same command later when writing to file
+	git show $1:$SUBDIR$file &>/dev/null # hack because above line doesn't work; goes from O(n+1) to O(2n+1) because this workaround utilizes an exit status and repeats the same command later when writing to file
 
 #	if [ "$OLDVERSION" = "" ] ; then # this file wasn't in the git log
 	if [ $? -ne 0 ] ; then
 		FILELIST=$FILELIST$SUBDIR$file" " # add to list of files not in git log
 	else # file was indeed in the git log
-		git show $1:$SUBDIR$file > $SUBDIR$file 2>/dev/null # overwrite the file with the other commit version
+		git show $1:$SUBDIR$file > $file 2>/dev/null # overwrite the file with the other commit version; git requires the full path, but we are cd'd into the directory already in order for the for-loop to capture the correct file list - this is why $SUBDIR$file is on the left side, but only $file is on the right
 	fi
 done
 
