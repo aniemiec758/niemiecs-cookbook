@@ -28,6 +28,8 @@ alias lstat="$NIEMIECS_COOKBOOK_DIR/lstat.sh"
 	` # mimics the lstat command; prints a directory's filenames, dates modified, and sizes `
 alias mirror="$NIEMIECS_COOKBOOK_DIR/mirror.sh"
 	` # when you need to look at two portions of the same file at once, but don't want to accidentally save changes in both terminals `
+alias rev="$NIEMIECS_COOKBOOK_DIR/gitrevertone.sh"
+	` # for quickly reverting particular files in nested directories, basically cases where it's easier to do this than to make a patch in gitrevertall.sh `
 alias search="$NIEMIECS_COOKBOOK_DIR/search.sh"
 	` # I just find this simpler than running the "find" command by itself; searches for a file by name in your file hierarchy `
 alias swompt="source $NIEMIECS_COOKBOOK_DIR/swompt.sh"
